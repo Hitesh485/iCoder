@@ -2,4 +2,30 @@
 
 {% block title %}Blog Home{% endblock title %}
 
-{% block body %}This is body{% endblock body %}
+{% block blogActive %}active{% endblock blogActive %}
+
+{% block body %}
+
+<div class="container my-4">
+    <h3>Coding Articles by - iCoder</h3>
+    <div class="row mb-2" bis_skin_checked="1">
+        {% for post in allPosts %}
+        <div class="col-md-6" bis_skin_checked="1">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="min-height: 262px;" bis_skin_checked="1">
+            <div class="col p-4 d-flex flex-column position-static" bis_skin_checked="1">
+              <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
+              <h3 class="mb-0">{{post.title}}</h3>
+              <div class="mb-1 text-muted" bis_skin_checked="1">{{post.timeStamp}}</div>
+              <p class="card-text mb-auto">{{post.content | truncatechars:100}}</p>
+              <a href="/blog/{{post.slug}}">Continue Reading</a>
+            </div>
+            <div class="col d-flex" bis_skin_checked="1">
+                <img src="/media/{{post.image}}" class="img-fluid rounded mx-auto mr-0 d-block" alt="Image is not supported">
+    
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}

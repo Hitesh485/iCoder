@@ -2,8 +2,10 @@
 
 {% block title %}Contact Us{% endblock title %}
 
+{% block contactActive %} active {% endblock contactActive %}
+
 {% block body %}
-<div class="container my-4">
+<div class="container w-75 my-4">
     <form action="/contact/" method="post"> {% csrf_token %}
         <div class="mb-3">
             <label for="name" class="form-label">Full Name</label>
