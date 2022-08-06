@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block title %}Search Results{% endblock title %}
+
+{% block blogActive %}active{% endblock blogActive %}
+
+{% block body %}
+
+<div class="container my-4">
+    <h3>Search Results:</h3>
+    {% if allPosts|length < 1 %}
+    <p> No search result found</p>
+    Your search query: <b>{{query|truncatechars:50}}...</b> did not match any documents. <br>
+    Suggestions:
+    <ul>
+        <li>Make sure that all words are spelled correctly.</li>
+        <li>Try more general keywords.</li>
+        <li> Try fewer keywords.</li>
+        <li> Try different keywords.</li>
+    </ul>
+    {% endif %}
+    <div class="row mb-2" bis_skin_checked="1">
+        {% for post in allPosts %}
+        <div class="col-md-6" bis_skin_checked="1">
+          <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="min-height: 262px;" bis_skin_checked="1">
+            <div class="col p-4 d-flex flex-column position-static" bis_skin_checked="1">
+              <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
+              <h3 class="mb-0">{{post.title}}</h3>
+              <div class="mb-1 text-muted" bis_skin_checked="1">{{post.timeStamp}}</div>
+              <p class="card-text mb-auto">{{post.content | truncatechars:100}}</p>
+              <a href="/blog/{{post.slug}}">Continue Reading</a>
+            </div>
+            <div class="col d-flex" bis_skin_checked="1">
+                <img src="/media/{{post.image}}" class="img-fluid rounded mx-auto mr-0 d-block" alt="Image is not supported">
+    
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock body %}
