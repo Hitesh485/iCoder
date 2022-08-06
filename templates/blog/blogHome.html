@@ -2,15 +2,32 @@
 
 {% block title %}Blog Home{% endblock title %}
 
+{% block css %} 
+
+@media screen and (max-width:983px)
+{
+  .d-flex {
+    display: none;
+  }
+  .col {
+    flex: none;
+  }
+  .row{
+    flex-shrink:0;
+  }
+}
+
+{% endblock css %}
+
 {% block blogActive %}active{% endblock blogActive %}
 
 {% block body %}
 
 <div class="container my-4">
     <h3>Coding Articles by - iCoder</h3>
-    <div class="row mb-2" bis_skin_checked="1">
+    <div class="mb-2" bis_skin_checked="1">
         {% for post in allPosts %}
-        <div class="col-md-6" bis_skin_checked="1">
+        <div bis_skin_checked="1">
           <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative" style="min-height: 262px;" bis_skin_checked="1">
             <div class="col p-4 d-flex flex-column position-static" bis_skin_checked="1">
               <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong>
@@ -19,9 +36,8 @@
               <p class="card-text mb-auto">{{post.content | truncatechars:100}}</p>
               <a href="/blog/{{post.slug}}">Continue Reading</a>
             </div>
-            <div class="col d-flex" bis_skin_checked="1">
-                <img src="/media/{{post.image}}" class="img-fluid rounded mx-auto mr-0 d-block" alt="Image is not supported">
-    
+            <div class="col d-flex m-query-dis-block" bis_skin_checked="1">
+                <img src="/media/{{post.image}}" class="img-fluid rounded mx-auto mr-0 d-block" alt="Image is not supported" style="height:100%;width:65%;">
             </div>
           </div>
         </div>
