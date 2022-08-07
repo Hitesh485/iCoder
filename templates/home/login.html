@@ -97,7 +97,7 @@ height: 100%;
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" class="btn btn-primary btn-lg" id="btn-id-login"
+                        <button type="button" class="btn btn-primary btn-lg" id="login-signup-btn"
                             style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                         <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/signup/"
                                 class="link-danger">Register</a></p>
@@ -134,10 +134,16 @@ height: 100%;
     </div>
 </section>
 
+
+<!-- MDB -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.4.0/mdb.min.js"></script>
+
 {% endblock body %}
+
 
 {% block script %}
 <script>
-    $('#login-signup-btn').hide();
+    console.log("working")
+$('#login-signup-btn').hide();
 </script>
 {% endblock script %}
