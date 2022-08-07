@@ -37,3 +37,9 @@ def search (request):
         allPosts = allPostsTitle.union(allPostsAuthor, allPostsContent)
     params = {'allPosts':allPosts, 'query': query}
     return render(request, 'home/search.html', params)
+
+def login (request):
+    return render(request, 'home/login.html')
+
+def signup (request):
+    return render(request, 'home/signup.html')
