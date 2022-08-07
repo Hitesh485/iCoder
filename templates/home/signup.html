@@ -1,12 +1,11 @@
 {% extends 'base.html' %}
 
 {% block links %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<link rel="stylesheet"
-    href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/standard/core.min.css">
-<link rel="stylesheet" id="roboto-subset.css-css"
-    href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/mdb5/fonts/roboto-subset.css?ver=3.9.0-update.5"
-    type="text/css" media="all">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet" />
+<!-- MDB -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/4.4.0/mdb.min.css" rel="stylesheet" />
 
 {% endblock links %}
 
@@ -19,6 +18,10 @@ content: "";
 flex: 1;
 height: 1px;
 background: #eee;
+}
+
+.form-outline .form-control.active .form-control-lg~ .form-label {
+transform: translateY(-1.25rem) translateY(0.1rem) scale(.8);
 }
 
 .h-custom {
@@ -91,7 +94,7 @@ height: 100%;
                     <!-- Username Input -->
                     <div class="form-outline mb-4" bis_skin_checked="1">
                         <input type="text" id="username" name="username" class="form-control form-control-lg"
-                            placeholder="Choose your username">
+                            placeholder="Choose your username" required>
                         <label class="form-label" for="username" style="margin-left: 0px;">Username</label>
                         <div class="form-notch" bis_skin_checked="1">
                             <div class="form-notch-leading" bis_skin_checked="1" style="width: 9px;"></div>
@@ -102,7 +105,7 @@ height: 100%;
                     <!-- Email input -->
                     <div class="form-outline mb-4" bis_skin_checked="1">
                         <input type="email" id="email" name="email" class="form-control form-control-lg"
-                            placeholder="Enter a valid email address">
+                            placeholder="Enter a valid email address" required>
                         <label class="form-label" for="email" style="margin-left: 0px;">Email address</label>
                         <div class="form-notch" bis_skin_checked="1">
                             <div class="form-notch-leading" bis_skin_checked="1" style="width: 9px;"></div>
@@ -114,7 +117,7 @@ height: 100%;
                     <!-- Password input -->
                     <div class="form-outline mb-3" bis_skin_checked="1">
                         <input type="password" id="pass1" name="pass1" class="form-control form-control-lg"
-                            placeholder="Enter password">
+                            placeholder="Enter password" required>
                         <label class="form-label" for="pass1" style="margin-left: 0px;">Password</label>
                         <div class="form-notch" bis_skin_checked="1">
                             <div class="form-notch-leading" bis_skin_checked="1" style="width: 9px;"></div>
@@ -125,7 +128,7 @@ height: 100%;
                     <!-- confirm password -->
                     <div class="form-outline mb-3" bis_skin_checked="1">
                         <input type="password" id="pass2" name="pass2" class="form-control form-control-lg"
-                            placeholder="Enter password">
+                            placeholder="Enter password" required>
                         <label class="form-label" for="pass2" style="margin-left: 0px;">Confirm
                             Password</label>
                         <div class="form-notch" bis_skin_checked="1">
@@ -176,9 +179,8 @@ height: 100%;
 
 {% endblock body %}
 
-
 {% block script %}
 <script>
-    $('#login-signup-btn').hide();
+$('#login-signup-btn').hide();
 </script>
 {% endblock script %}

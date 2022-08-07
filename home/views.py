@@ -54,23 +54,30 @@ def login(request):
 
 
 def handleSignup(request):
-    # if request.method == 'POST':
-    # Get the post parameters
-    fname = request.POST.get('fname', False)
-    lname = request.POST.get('lname', False)
-    username = request.POST.get('username', False)
-    email = request.POST.get('email', False)
-    pass1 = request.POST.get('pass1', False)
-    pass2 = request.POST.get('pass2', False)
-
+    if request.method == 'POST':
+        fname = request.POST['fname']
+        lname = request.POST['lname']
+        username = request.POST['username']
+        email = request.POST['email']
+        pass1 = request.POST['pass1']
+        pass2 = request.POST['pass2']
+        print(fname, lname, username, email, pass1, pass2)
     # Check for error input
+        if User.objects.filter(username = username).first():
+            messages.error(request, "This username is already taken")
+
+        if not username.isalnum():
+            messages.error(request, "Username should not contain special symbols")
+        
+        if (pass1 != pass2):
+            messages.error(request, "Password do not match !")
 
     # Create the user
-    # myUser = User.objects.create_user(username=username, email=email, pass1=pass1)
-    myUser.first_name = fname
-    myUser.second_name = lname
-    myUser.save()
-    messages.success(request, "Your iCoder has been successfully created")
-    return redirect('home')
-    # else:
-    #     return HttpResponse('404 not found')
+        else:
+            myUser = User.objects.create_user(username, email, pass1)
+            myUser.first_name = fname
+            myUser.second_name = lname
+            myUser.save()
+            messages.success(request, "Your iCoder has been successfully created")
+            return redirect('index')
+    return render(request, 'home/signup.html')
