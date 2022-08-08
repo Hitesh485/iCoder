@@ -4,13 +4,13 @@ from django.contrib import messages
 from blog . models import Post
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login, logout
 
-# Create your views here.
+# HTML pages
 def index (request):
     return render(request, 'home/index.html')
 
 def about (request):
-    # return HttpResponse('about')
     return render(request, 'home/about.html')
     
 def contact (request):
@@ -40,10 +40,7 @@ def search (request):
     params = {'allPosts':allPosts, 'query': query}
     return render(request, 'home/search.html', params)
 
-def login (request):
-    return render(request, 'home/login.html')
-
-
+# Authentication API's
 def handleSignup(request):
     if request.method == 'POST':
         fname = request.POST['fname']
@@ -72,3 +69,25 @@ def handleSignup(request):
             messages.success(request, "Your iCoder has been successfully created")
             return redirect('index')
     return render(request, 'home/signup.html')
+
+def handleLogin (request):
+    if request.method == "POST":
+        loginEmail = request.POST['loginEmail']
+        loginPassword = request.POST['loginPassword']
+
+        user = authenticate(username = loginEmail, password = loginPassword)
+
+        if user is not None:
+            login(request, user)
+            messages.success(request, "Successfully Logged In")
+            return redirect('index')
+        else:
+            messages.error(request, "Invalid Credentials, Please try again!")
+
+    return render(request, 'home/login.html')
+    
+def handleLogout (request):
+    logout(request)
+    messages.success(request, "Successfully logged out")
+    return redirect('index')
+    return HttpResponse("handleLogout")

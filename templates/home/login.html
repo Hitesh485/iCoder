@@ -41,7 +41,7 @@ height: 100%;
                     class="img-fluid" alt="Sample image">
             </div>
             <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
-                <form>
+                <form action="/login/" method="post"> {% csrf_token %}
                     <div class="d-flex flex-row align-items-center justify-content-center justify-content-lg-start">
                         <p class="lead fw-normal mb-0 me-3">Sign in with</p>
                         <button type="button" class="btn btn-primary btn-floating mx-1">
@@ -63,9 +63,9 @@ height: 100%;
 
                     <!-- Email input -->
                     <div class="form-outline mb-4" bis_skin_checked="1">
-                        <input type="email" id="email" class="form-control form-control-lg"
+                        <input type="text" id="loginEmail" name="loginEmail" class="form-control form-control-lg"
                             placeholder="Enter a valid email address">
-                        <label class="form-label" for="email" style="margin-left: 0px;">Email address</label>
+                        <label class="form-label" for="loginEmail" style="margin-left: 0px;">Email address or Username</label>
                         <div class="form-notch" bis_skin_checked="1">
                             <div class="form-notch-leading" bis_skin_checked="1" style="width: 9px;"></div>
                             <div class="form-notch-middle" bis_skin_checked="1" style="width: 88.8px;"></div>
@@ -75,9 +75,9 @@ height: 100%;
 
                     <!-- Password input -->
                     <div class="form-outline mb-3" bis_skin_checked="1">
-                        <input type="password" id="password" class="form-control form-control-lg"
+                        <input type="password" id="loginPassword" name="loginPassword" class="form-control form-control-lg"
                             placeholder="Enter password">
-                        <label class="form-label" for="password" style="margin-left: 0px;">Password</label>
+                        <label class="form-label" for="loginPassword" style="margin-left: 0px;">Password</label>
                         <div class="form-notch" bis_skin_checked="1">
                             <div class="form-notch-leading" bis_skin_checked="1" style="width: 9px;"></div>
                             <div class="form-notch-middle" bis_skin_checked="1" style="width: 64px;"></div>
@@ -97,7 +97,7 @@ height: 100%;
                     </div>
 
                     <div class="text-center text-lg-start mt-4 pt-2">
-                        <button type="button" class="btn btn-primary btn-lg" id="login-signup-btn"
+                        <button type="submit" class="btn btn-primary btn-lg" id="login-signup-btn"
                             style="padding-left: 2.5rem; padding-right: 2.5rem;">Login</button>
                         <p class="small fw-bold mt-2 pt-1 mb-0">Don't have an account? <a href="/signup/"
                                 class="link-danger">Register</a></p>
