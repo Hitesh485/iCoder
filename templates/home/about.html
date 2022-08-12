@@ -1,7 +1,50 @@
 {% extends 'base.html' %}
 
+{% block link %}
+
+{% load static %}
+
+<!-- <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet"> -->
+
+{% endblock link %}
+
 {% block title %}About{% endblock title %}
+
+{% block css %}
+{% endblock css %}
+
 
 {% block aboutActive %}active{% endblock aboutActive %}
 
-{% block body %} <h1>About</h1> {% endblock body %}
+{% block body %}
+
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+    <div class="container">
+      <div class="row gy-4">
+        <div class="col-lg-6 order-2 order-lg-1 d-flex flex-column justify-content-center">
+          <h1>Bettter digital experience with Ninestars</h1>
+          <h2>We are team of talented designers making websites with Bootstrap</h2>
+          <div>
+            <a href="#about" class="btn-get-started scrollto">Get Started</a>
+          </div>
+        </div>
+        <div class="col-lg-6 order-1 order-lg-2 hero-img">
+            <img src="{% static 'about/about-img.png' %}" class="img-fluid animated" alt="">
+        </div>
+      </div>
+    </div>
+
+  </section><!-- End Hero -->
+
+  
+{% endblock body %}
+

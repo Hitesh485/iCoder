@@ -20,6 +20,9 @@ from django import views
 from django.contrib import admin
 from django.urls import path, include
 
+admin.site.site_header = "Hitesh Admin"
+admin.site.index_title = "Welcome to the Hitesh admin panel"
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('home.urls')),

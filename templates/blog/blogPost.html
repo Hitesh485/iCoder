@@ -1,6 +1,49 @@
 {% extends 'base.html' %}
 
+{% load static %}
+{% load humanize %}
+{% load extra %}
+
 {% block title %} Blog Post {% endblock title %}
+
+{% block css %}
+
+.btn-class {
+flex: 1 1 auto;
+margin: 10px 10px 10px 0px;
+padding: 10px;
+text-align: center;
+text-transform: uppercase;
+transition: 0.5s;
+background-size: 200% auto;
+color: white;
+box-shadow: 0 0 20px #eee;
+border: none;
+border-radius: 10px;
+}
+
+
+.btn-class:hover {
+background-position: right center;
+}
+
+.btn-2 {
+background-image: linear-gradient(to right, #fbc2eb 0%, #a6c1ee 51%, #fbc2eb 100%);
+}
+
+.input-group-text {
+padding: 1.375rem 0.75rem;
+}
+
+.label-comment{
+font-weight: 800;
+background: -webkit-linear-gradient(45deg, #000000, #e0fff2 80%);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+margin: 0;
+}
+
+{% endblock css %}
 
 {% block body %}
 
@@ -69,30 +112,81 @@
 <!-- Blog Comments Section -->
 <div class="container">
     <hr class="border border-primary border-2 opacity-75">
-    <h3>Comments</h3>
-    <form action="/blog/postComment" method="post">
-        {% csrf_token %}
-        <input type="text" name="comment" placeholder="Enter comment here">
-        <input type="hidden" name="postSno" value="{{post.sno}}" >
-        <input type="submit" value="Submit">
-  </form>
-  <hr>
+    <h3>Comments ({{comments.count}})</h3>
+    {% if user.is_authenticated %}
+    <form action="/blog/postComment" method="post"> {% csrf_token %}
+        <label for="exampleInputEmail1" class="label-comment">Post Comment </label>
+        <textarea rows="4" type="text" name="comment" class="form-control shadow"
+            placeholder="Express your thougths"></textarea>
+        <input type="hidden" name="parentSno" value="">
+
+        <input type="hidden" name="postSno" value="{{post.sno}}">
+        <button type="submit" class="btn-class btn-2"> Post Comment </button>
+    </form>
+    {% else %}
+    <p>Please login to post a comment! </p>
+    {% endif %}
+    <hr>
+
+    {% for comment in comments %}
     <div class="row border rounded mb-3">
-        <div class="col-md-2 p-4">image</div>
-        <div class="col-md-10 p-4">Comment</div>
+        <div class="col-md-1 p-1">
+            <img src="{% static 'img/user-img.png' %}" alt="user-image" style="width: 45px;">
+        </div>
+        <div class="col-md-11 p-1">
+            <b> {{comment.user.username}} </b> {{comment.timeStamp | naturaltime}}
+            <div>{{comment.comment}}</div>
+
+            <!-- Reply -->
+            <div class="reply">
+                <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false"
+                    aria-controls="replyBox{{comment.sno}}">
+                    Reply
+                </button>
+                </p>
+                <div class="collapse" id="replyBox{{comment.sno}}">
+                    <div class="card card-body border border-0">
+                        <form action="/blog/postComment" method="post"> {% csrf_token %}
+                            <label for="comment" class="label-comment">Post a reply </label>
+                            <textarea rows="2" type="text" name="comment" class="form-control shadow"
+                                placeholder="reply..."></textarea>
+                            <input type="hidden" name="parentSno" value="{{comment.sno}}">
+                            <input type="hidden" name="postSno" value="{{post.sno}}">
+                            <button type="submit" class="btn-class btn-2"> Post reply </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Show replies -->
+                {% for reply in replyDict|get_val:comment.sno|slice:":1" %}
+                <span class="text-primary" style="cursor: pointer;" data-bs-toggle="collapse"
+                    data-bs-target="#showReply{{comment.sno}}" aria-expanded="false" aria-controls="showReply{{comment.sno}}">
+                    Show reply
+                </span>
+                {% endfor %}
+                {% for reply in replyDict|get_val:comment.sno %}
+                <div class="collapse" id="showReply{{comment.sno}}">
+                    <div class="card card-body border border-0">
+                        <div class="replies" id="replies-id">
+                            
+                            <img src="{% static 'img/user-img.png' %}" alt="user-image" style="width:20px;">
+                            <span>{{comment.user.username}}</span>
+                            <p class="mx-0">{{reply.comment}}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
     </div>
-    <div class="row border rounded mb-3">
-        <div class="col-md-2 p-4">image</div>
-        <div class="col-md-10 p-4">Comment</div>
-    </div>
-    <div class="row border rounded mb-3">
-        <div class="col-md-2 p-4">image</div>
-        <div class="col-md-10 p-4">Comment</div>
-    </div>
-    <div class="row border rounded mb-3">
-        <div class="col-md-2 p-4">image</div>
-        <div class="col-md-10 p-4">Comment</div>
-    </div>
+    {% endfor %}
 </div>
 
 {% endblock body %}
+
+{% block script %}
+<script>
+    // document.getElementById('replies-id').style.display = "none";
+</script>
+{% endblock script %}
