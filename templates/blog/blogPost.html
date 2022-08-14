@@ -41,6 +41,7 @@ background: -webkit-linear-gradient(45deg, #000000, #e0fff2 80%);
 -webkit-background-clip: text;
 -webkit-text-fill-color: transparent;
 margin: 0;
+
 }
 
 {% endblock css %}
@@ -59,7 +60,7 @@ margin: 0;
         <div class="col-md-8" bis_skin_checked="1">
 
             <article class="blog-post">
-                <h2 class="blog-post-title mb-1">{{post.title}}</h2>
+                <h2 class="blog-post-title mb-1">{{post.title}} ({{post.views}} views)</h2>
                 <p class="blog-post-meta">{{post.timeStamp}} by <a href="/about/" target="_blank"
                         style="text-decoration:none;">{{post.author}}</a></p>
 
@@ -68,8 +69,7 @@ margin: 0;
                     typography, lists, tables, images, code, and more are all supported as expected.</p>
                 <hr>
 
-                <h2>Heading</h2>
-                <p>{{post.content}}</p>
+                <p>{{post.content|safe}}</p>
                 <h3>Sub-heading</h3>
                 <p>This is some additional paragraph placeholder content. It has been written to fill the available
                     space
@@ -139,12 +139,14 @@ margin: 0;
 
             <!-- Reply -->
             <div class="reply">
+                {% if user.is_authenticated %}
                 <button class="btn btn-sm btn-primary" type="button" data-bs-toggle="collapse"
                     data-bs-target="#replyBox{{comment.sno}}" aria-expanded="false"
                     aria-controls="replyBox{{comment.sno}}">
                     Reply
                 </button>
                 </p>
+                {% endif %}
                 <div class="collapse" id="replyBox{{comment.sno}}">
                     <div class="card card-body border border-0">
                         <form action="/blog/postComment" method="post"> {% csrf_token %}
@@ -167,11 +169,11 @@ margin: 0;
                 {% endfor %}
                 {% for reply in replyDict|get_val:comment.sno %}
                 <div class="collapse" id="showReply{{comment.sno}}">
-                    <div class="card card-body border border-0">
+                    <div class="card p-1 border border-0">
                         <div class="replies" id="replies-id">
                             
                             <img src="{% static 'img/user-img.png' %}" alt="user-image" style="width:20px;">
-                            <span>{{comment.user.username}}</span>
+                            <b> {{reply.user.username}} </b> {{reply.timeStamp | naturaltime}}
                             <p class="mx-0">{{reply.comment}}</p>
                         </div>
                     </div>

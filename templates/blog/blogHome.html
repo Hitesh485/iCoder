@@ -2,6 +2,18 @@
 
 {% block title %}Blog Home{% endblock title %}
 
+{% block script %}
+
+<script>
+  let previews = document.getElementsByClassName('preview');
+  Array.from(previews).forEach((element) => {
+    element.innerHTML = element.innerText;
+    console.log(previews)
+  })
+</script>
+<!-- document.getElementsByClassName('card-text')[0].innerHTML = document.getElementsByClassName('card-text')[0].innerText -->
+{% endblock script %}
+
 {% block css %}
 
 .card-img, .card-img-bottom, .card-img-top {
@@ -9,10 +21,10 @@ max-height: 393px;
 }
 
 .w-100 {
-  padding-bottom: 1px;
-  background-color: #ccecff;
-  background-image: linear-gradient(346deg, #ccecff 0%, #dbfffb 50%, #ffffff 100%);
-  border-radius: 0.5rem 0.5rem 0 0;
+padding-bottom: 1px;
+background-color: #ccecff;
+background-image: linear-gradient(346deg, #ccecff 0%, #dbfffb 50%, #ffffff 100%);
+border-radius: 0.5rem 0.5rem 0 0;
 }
 
 .card {
@@ -37,9 +49,9 @@ flex-shrink:0;
 
 @media (min-width: 1200px)
 {
-  .container, .container-lg, .container-md, .container-sm, .container-xl {
-    max-width: 1100px;
-  }
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+max-width: 1100px;
+}
 }
 
 {% endblock css %}
@@ -56,9 +68,12 @@ flex-shrink:0;
         <div class="card">
           <img src="/media/{{post.image}}" class="card-img-top" alt="Image not loaded!" />
           <div class="card-body">
-            <h5 class="card-title">{{post.title}}</h5>
+            <h5 class="card-title">{{post.title}} ({{post.views}} views)</h5>
             <p class="card-text">
-              {{post.content | truncatechars:200}} <a href="/blog/{{post.slug}}">Continue Reading</a>
+            <div class="preview">
+              {{post.content|safe| truncatechars:200}}
+            </div> 
+            <a href="/blog/{{post.slug}}">Continue Reading</a>
             </p>
             <p class="card-text">
               <strong class="d-inline-block mb-2 text-primary">Article by {{post.author}}</strong><br>
