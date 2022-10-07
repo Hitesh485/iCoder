@@ -58,7 +58,7 @@ def handleSignup(request):
             messages.error(request, "Username should not contain special symbols")
         
         if (pass1 != pass2):
-            messages.error(request, "Password do not match !")
+            messages.error(request, "Password does not match !")
 
     # Create the user
         else:
